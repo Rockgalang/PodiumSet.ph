@@ -1,0 +1,22 @@
+# deps
+node_modules/
+
+# next
+.next/
+out/
+
+# env & secrets
+.env
+.env.local
+.env*.local
+
+# database (local file; Supabase is source of truth after migration)
+data/
+
+# uploads (moved to Google Drive in prod)
+public/uploads/
+
+# misc
+*.log
+.DS_Store
+*.tsbuildinfo

@@ -3,7 +3,16 @@ import fs from "node:fs";
 import { seedOnBoot } from "./seed";
 
 const dataDir = path.join(process.cwd(), "data");
-if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+let dataWritable = true;
+try {
+  if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+} catch (e) {
+  dataWritable = false;
+  console.warn(
+    "[db] data dir not writable, falling back to in-memory PGlite:",
+    (e as Error).message
+  );
+}
 
 /* ------------------------------------------------------------------ */
 /* SQL dialect bridge (SQLite -> Postgres):                            */
@@ -174,7 +183,9 @@ function initBackend(): Promise<Backend> {
       }
       const { PGlite } = await import("@electric-sql/pglite");
       const client = new PGlite(
-        process.env.PGLITE_DIR ? path.join(dataDir, "podiumset-pglite") : undefined
+        dataWritable && process.env.PGLITE_DIR
+          ? path.join(dataDir, "podiumset-pglite")
+          : undefined
       );
       await client.waitReady;
       const run = async (text: string, params: unknown[]) => {

@@ -1,11 +1,33 @@
 import fs from "node:fs";
 import path from "node:path";
+import os from "node:os";
 import crypto from "node:crypto";
 
-const UPLOAD_ROOT = path.join(process.cwd(), "public", "uploads");
+// Prefer public/uploads (servable static) but fall back to a writable temp
+// dir on read-only filesystems (Vercel serverless /var/task).
+function resolveUploadRoot(): string {
+  const preferred = path.join(process.cwd(), "public", "uploads");
+  try {
+    fs.mkdirSync(preferred, { recursive: true });
+    fs.writeFileSync(path.join(preferred, ".probe"), "x");
+    fs.rmSync(path.join(preferred, ".probe"));
+    return preferred;
+  } catch (e) {
+    console.warn("[upload] public/uploads not writable, using temp dir:", (e as Error).message);
+    const tmp = path.join(os.tmpdir(), "podiumset-uploads");
+    fs.mkdirSync(tmp, { recursive: true });
+    return tmp;
+  }
+}
+
+const UPLOAD_ROOT = resolveUploadRoot();
 
 function ensureDir(dir: string) {
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  try {
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  } catch (e) {
+    throw new Error(`Cannot create upload dir: ${(e as Error).message}`);
+  }
 }
 
 export interface SavedFile {

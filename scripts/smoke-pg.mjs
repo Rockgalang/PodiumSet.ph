@@ -1,5 +1,5 @@
 /* End-to-end API smoke against the Postgres/PGlite stack. */
-const BASE = "http://localhost:3100";
+const BASE = process.env.SMOKE_BASE || "http://localhost:3100";
 const ADMIN_EMAIL = "admin@podiumset.ph";
 const ADMIN_PASSWORD = process.env.SMOKE_ADMIN_PASSWORD || "podiumset2026";
 const fs = await import("node:fs");

@@ -140,7 +140,10 @@ function initBackend(): Promise<Backend> {
     readyPromise = (async () => {
       if (process.env.DATABASE_URL) {
         const { Pool } = await import("pg");
-        const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+        const pool = new Pool({
+          connectionString: process.env.DATABASE_URL,
+          ssl: { rejectUnauthorized: false },
+        });
         const b: Backend = {
           async query(text, params) {
             const res = await pool.query(text, params);

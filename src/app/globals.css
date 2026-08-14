@@ -20,8 +20,8 @@
   --color-gold-strong: #f2c763;
   --color-gold-soft: #33291a;
 
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-montserrat), ui-monospace, monospace;
 
   --animate-rise: rise 0.5s ease both;
   --animate-fade-in: fade-in 0.25s ease both;

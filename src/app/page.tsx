@@ -3,6 +3,7 @@ import { getPlans, getAddons } from "@/lib/queries";
 import { peso } from "@/lib/format";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { Logo } from "@/components/Logo";
+import { Reveal } from "@/components/Reveal";
 import { redirectIfAuthed } from "@/lib/guard";
 
 export const dynamic = "force-dynamic";
@@ -48,7 +49,7 @@ export default async function LandingPage() {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(600px_at_70%_-10%,rgba(224,180,77,0.12),transparent)]" />
         <div className="mx-auto max-w-6xl px-5 pb-20 pt-24 text-center md:pt-32">
           <p className="rise mb-5 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-1.5 text-xs font-medium text-muted">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            <span className="h-1.5 w-1.5 animate-float rounded-full bg-emerald-400" />
             Pause or cancel anytime · Made for Filipino businesses
           </p>
           <h1
@@ -74,13 +75,13 @@ export default async function LandingPage() {
           >
             <Link
               href="/signup"
-              className="w-full rounded-xl bg-gold px-8 py-3.5 text-base font-semibold text-ink hover:bg-gold-strong sm:w-auto"
+              className="btn-sheen w-full rounded-xl bg-gold px-8 py-3.5 text-base font-semibold text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-gold-strong active:scale-[0.98] sm:w-auto"
             >
               Start your subscription
             </Link>
             <a
               href="#packages"
-              className="w-full rounded-xl border border-line2 px-8 py-3.5 text-base font-medium text-paper hover:border-gold/60 sm:w-auto"
+              className="w-full rounded-xl border border-line2 px-8 py-3.5 text-base font-medium text-paper transition-all duration-200 hover:-translate-y-0.5 hover:border-gold/60 active:scale-[0.98] sm:w-auto"
             >
               See pricing
             </a>
@@ -98,7 +99,7 @@ export default async function LandingPage() {
       <section className="border-t border-line bg-ink2">
         <div className="mx-auto max-w-6xl px-5 py-20">
           <div className="grid gap-12 md:grid-cols-2 md:items-center">
-            <div>
+            <Reveal>
               <p className="text-xs font-semibold uppercase tracking-widest text-gold">
                 Sound familiar?
               </p>
@@ -112,7 +113,7 @@ export default async function LandingPage() {
                 It&apos;s exhausting, it&apos;s inconsistent, and it&apos;s
                 expensive.
               </p>
-            </div>
+            </Reveal>
             <ul className="space-y-4">
               {[
                 "No in-house designer — everything creative waits on you",
@@ -121,16 +122,18 @@ export default async function LandingPage() {
                 "No video crew, so you skip the format your customers actually watch",
                 "Doing it all yourself means your business never gets your full attention",
               ].map((pain, i) => (
-                <li
-                  key={i}
-                  className="flex items-start gap-3 rounded-xl border border-line bg-surface p-4"
-                >
-                  <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-gold-soft text-xs font-bold text-gold">
-                    {i + 1}
-                  </span>
-                  <span className="text-sm leading-relaxed text-paper2">
-                    {pain}
-                  </span>
+                <li key={i}>
+                  <Reveal
+                    delay={i * 60}
+                    className="flex items-start gap-3 rounded-xl border border-line bg-surface p-4 transition-colors hover:border-line2 hover:bg-surface2"
+                  >
+                    <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-gold-soft text-xs font-bold text-gold">
+                      {i + 1}
+                    </span>
+                    <span className="text-sm leading-relaxed text-paper2">
+                      {pain}
+                    </span>
+                  </Reveal>
                 </li>
               ))}
             </ul>
@@ -169,7 +172,7 @@ export default async function LandingPage() {
                 ["Design consultancy retainer", "₱5,000+", "Included"],
                 ["On-site shoot crew", "₱8,000+ per shoot", "Free shoot hours"],
               ].map((row, i) => (
-                <tr key={i}>
+                <tr key={i} className="transition-colors hover:bg-surface/60">
                   <td className="py-3.5 pr-4 font-medium text-paper">{row[0]}</td>
                   <td className="py-3.5 pr-4 text-muted">{row[1]}</td>
                   <td className="py-3.5">
@@ -200,15 +203,19 @@ export default async function LandingPage() {
           </div>
 
           <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {packages.map((p) => (
-              <div
+            {packages.map((p, i) => (
+              <Reveal
                 key={p.id}
-                className={`relative flex flex-col rounded-2xl border p-6 ${
-                  p.featured
-                    ? "border-gold bg-surface shadow-[0_0_40px_-12px_rgba(224,180,77,0.35)]"
-                    : "border-line bg-surface"
-                }`}
+                delay={i * 70}
+                className={p.featured ? "lg:-mt-3 lg:mb-3" : ""}
               >
+                <div
+                  className={`relative flex h-full flex-col rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1.5 ${
+                    p.featured
+                      ? "border-gold bg-surface shadow-[0_0_40px_-12px_rgba(224,180,77,0.35)] hover:shadow-[0_0_55px_-10px_rgba(224,180,77,0.5)]"
+                      : "border-line bg-surface hover:border-line2 hover:shadow-[0_12px_40px_-20px_rgba(0,0,0,0.8)]"
+                  }`}
+                >
                 {p.featured && (
                   <span className="absolute -top-3 left-6 rounded-full bg-gold px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-ink">
                     Best and Top Choice
@@ -254,21 +261,25 @@ export default async function LandingPage() {
                 </ul>
                 <Link
                   href="/signup"
-                  className={`mt-6 rounded-xl px-4 py-3 text-center text-sm font-semibold ${
+                  className={`mt-6 rounded-xl px-4 py-3 text-center text-sm font-semibold transition-all duration-200 active:scale-[0.98] ${
                     p.featured
-                      ? "bg-gold text-ink hover:bg-gold-strong"
+                      ? "btn-sheen bg-gold text-ink hover:bg-gold-strong"
                       : "border border-line2 text-paper hover:border-gold/60"
                   }`}
                 >
                   Start with {p.name}
                 </Link>
               </div>
+              </Reveal>
             ))}
           </div>
 
           {/* Standalone ad management */}
           {standalone && (
-            <div className="mt-6 flex flex-col items-center justify-between gap-4 rounded-2xl border border-dashed border-line2 bg-surface p-6 md:flex-row">
+            <Reveal
+              delay={packages.length * 70}
+              className="mt-6 flex flex-col items-center justify-between gap-4 rounded-2xl border border-dashed border-line2 bg-surface p-6 transition-colors hover:border-gold/40 md:flex-row"
+            >
               <div>
                 <h3 className="text-lg font-bold">{standalone.name}</h3>
                 <p className="mt-1 text-sm text-muted">{standalone.description}</p>
@@ -282,7 +293,7 @@ export default async function LandingPage() {
                   Get ad management
                 </Link>
               </div>
-            </div>
+            </Reveal>
           )}
         </div>
       </section>
@@ -299,7 +310,7 @@ export default async function LandingPage() {
         </div>
         <div className="mt-10 grid gap-5 md:grid-cols-2">
           {adAddon && (
-            <div className="rounded-2xl border border-line bg-surface p-6">
+            <Reveal className="rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-line2">
               <h3 className="text-lg font-bold">{adAddon.name}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">{adAddon.description}</p>
               <div className="mt-4 flex items-baseline gap-2">
@@ -311,10 +322,10 @@ export default async function LandingPage() {
                 Ad creatives and ad spend are not included — you fund the ad
                 budget. Ads pause when your subscription is inactive.
               </p>
-            </div>
+            </Reveal>
           )}
           {aiAddon && (
-            <div className="rounded-2xl border border-line bg-surface p-6">
+            <Reveal delay={100} className="rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-line2">
               <h3 className="text-lg font-bold">{aiAddon.name}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">{aiAddon.description}</p>
               <div className="mt-4 flex items-baseline gap-2">
@@ -325,7 +336,7 @@ export default async function LandingPage() {
                 Consumes your existing request slot — it adds capability, not
                 extra concurrency.
               </p>
-            </div>
+            </Reveal>
           )}
         </div>
       </section>
@@ -349,13 +360,17 @@ export default async function LandingPage() {
               ["Submit requests", "Pile up as many as you like. We work through them one at a time."],
               ["Receive work", "Approve, request revisions, or let it auto-approve in 3 business days."],
             ].map(([title, desc], i) => (
-              <div key={i} className="rounded-2xl border border-line bg-surface p-5">
+              <Reveal
+                key={i}
+                delay={i * 70}
+                className="rounded-2xl border border-line bg-surface p-5 transition-all duration-300 hover:-translate-y-1 hover:border-line2"
+              >
                 <div className="grid h-8 w-8 place-items-center rounded-full bg-gold-soft text-sm font-bold text-gold">
                   {i + 1}
                 </div>
                 <h3 className="mt-4 font-bold">{title}</h3>
                 <p className="mt-1.5 text-sm leading-relaxed text-muted">{desc}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -371,7 +386,7 @@ export default async function LandingPage() {
             International subscriptions, but built for the Philippines.
           </h2>
         </div>
-        <div className="mt-10 overflow-x-auto">
+        <Reveal className="mt-10 overflow-x-auto">
           <table className="w-full min-w-[560px] text-left text-sm">
             <thead>
               <tr className="border-b border-line text-xs uppercase tracking-wider text-muted">
@@ -389,7 +404,7 @@ export default async function LandingPage() {
                 ["Shoots", "Free monthly shoot hours on Marketing+", "Digital only"],
                 ["Consultancy", "Monthly hours with a real strategist", "Rarely included"],
               ].map((row, i) => (
-                <tr key={i}>
+                <tr key={i} className="transition-colors hover:bg-surface/60">
                   <td className="py-3.5 pr-4 font-medium text-paper">{row[0]}</td>
                   <td className="py-3.5 pr-4 text-paper2">{row[1]}</td>
                   <td className="py-3.5 text-muted">{row[2]}</td>
@@ -397,7 +412,7 @@ export default async function LandingPage() {
               ))}
             </tbody>
           </table>
-        </div>
+        </Reveal>
       </section>
 
       {/* ===== FAQ ===== */}
@@ -406,7 +421,7 @@ export default async function LandingPage() {
           <h2 className="text-center text-3xl font-bold tracking-tight">
             Frequently asked questions
           </h2>
-          <div className="mt-10">
+          <Reveal className="mt-10">
             <FaqAccordion
               items={[
                 {
@@ -451,27 +466,29 @@ export default async function LandingPage() {
                 },
               ]}
             />
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ===== Footer CTA ===== */}
       <section className="mx-auto max-w-4xl px-5 py-24 text-center">
-        <h2 className="text-3xl font-bold tracking-tight md:text-5xl">
-          Your brand deserves a team behind it.
-        </h2>
-        <p className="mx-auto mt-4 max-w-md text-muted">
-          One subscription. Unlimited work. Pause or cancel anytime.
-        </p>
-        <Link
-          href="/signup"
-          className="mt-8 inline-block rounded-xl bg-gold px-10 py-4 text-base font-semibold text-ink hover:bg-gold-strong"
-        >
-          Start your subscription
-        </Link>
-        <p className="mt-4 text-xs text-muted">
-          From {peso(7995)}/month · First payment verified within business hours
-        </p>
+        <Reveal>
+          <h2 className="text-3xl font-bold tracking-tight md:text-5xl">
+            Your brand deserves a team behind it.
+          </h2>
+          <p className="mx-auto mt-4 max-w-md text-muted">
+            One subscription. Unlimited work. Pause or cancel anytime.
+          </p>
+          <Link
+            href="/signup"
+            className="btn-sheen mt-8 inline-block rounded-xl bg-gold px-10 py-4 text-base font-semibold text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-gold-strong active:scale-[0.98]"
+          >
+            Start your subscription
+          </Link>
+          <p className="mt-4 text-xs text-muted">
+            From {peso(7995)}/month · First payment verified within business hours
+          </p>
+        </Reveal>
       </section>
 
       <footer className="border-t border-line py-8">

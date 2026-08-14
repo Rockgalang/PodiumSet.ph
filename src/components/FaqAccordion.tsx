@@ -18,20 +18,26 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
             <button
               type="button"
               onClick={() => setOpen(isOpen ? null : i)}
-              className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-[15px] font-semibold text-paper"
+              className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-[15px] font-semibold text-paper transition-colors hover:bg-surface2"
             >
               <span>{item.q}</span>
               <span
-                className={`text-gold transition-transform ${isOpen ? "rotate-45" : ""}`}
+                className={`grid h-5 w-5 shrink-0 place-items-center rounded-full bg-ink2 text-gold transition-transform duration-300 ease-out ${isOpen ? "rotate-45 bg-gold-soft" : ""}`}
               >
                 +
               </span>
             </button>
-            {isOpen && (
-              <div className="px-5 pb-5 text-sm leading-relaxed text-muted">
-                {item.a}
+            <div
+              className={`grid transition-[grid-template-rows] duration-300 ease-out ${
+                isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+              }`}
+            >
+              <div className="overflow-hidden">
+                <div className="px-5 pb-5 text-sm leading-relaxed text-muted">
+                  {item.a}
+                </div>
               </div>
-            )}
+            </div>
           </div>
         );
       })}

@@ -949,8 +949,8 @@ function Modal({
   children: React.ReactNode;
 }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-0 sm:items-center sm:p-4">
-      <div className="max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-t-2xl border border-line bg-surface p-5 board-scroll sm:rounded-2xl sm:p-6">
+    <div className="animate-fade-in fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-0 sm:items-center sm:p-4">
+      <div className="animate-pop-in max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-t-2xl border border-line bg-surface p-5 board-scroll sm:rounded-2xl sm:p-6">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-lg font-bold">{title}</h2>
           <button

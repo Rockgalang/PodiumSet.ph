@@ -367,7 +367,7 @@ export function ClientDashboardClient({
                       onDragEnd={() => setDrag(null)}
                       onDragOver={onDragOver}
                       onDrop={(e) => onDropCard(e, col.key, i)}
-                      className="group cursor-grab rounded-xl border border-line bg-surface p-3.5 transition-colors hover:border-gold/40 active:cursor-grabbing"
+                      className="group cursor-grab rounded-xl border border-line bg-surface p-3.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/40 hover:shadow-[0_12px_30px_-14px_rgba(0,0,0,0.85)] active:cursor-grabbing"
                     >
                       <div className="flex items-start justify-between gap-2">
                         <h3 className="text-sm font-semibold leading-snug">

@@ -547,11 +547,11 @@ function Card({
   const due = colKey === "ongoing" ? dueStatus(request.due_at) : "none";
   return (
     <div
-      className="group cursor-pointer rounded-xl border border-line bg-surface p-3.5 transition hover:border-line2"
+      className="group cursor-pointer rounded-xl border border-line bg-surface p-3.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/40 hover:shadow-[0_12px_30px_-14px_rgba(0,0,0,0.85)]"
       onClick={() => onOpen(request.id)}
     >
       <div className="flex items-start justify-between gap-2">
-        <h3 className="text-sm font-semibold leading-snug">{request.title}</h3>
+        <h3 className="text-sm font-semibold leading-snug transition-colors group-hover:text-gold">{request.title}</h3>
         {colKey === "lineup" && !readonly && (
           <div className="flex shrink-0 flex-col" onClick={(e) => e.stopPropagation()}>
             <button

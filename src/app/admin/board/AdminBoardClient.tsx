@@ -449,13 +449,13 @@ function AdminCard({
 
   return (
     <div
-      className={`cursor-pointer rounded-xl border bg-surface p-3.5 transition hover:border-line2 ${
+      className={`group cursor-pointer rounded-xl border bg-surface p-3.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/40 hover:shadow-[0_12px_30px_-14px_rgba(0,0,0,0.85)] ${
         priority ? "border-gold/50" : "border-line"
       }`}
       onClick={() => onOpen(request.id)}
     >
       <div className="flex items-start justify-between gap-2">
-        <h3 className="text-sm font-semibold leading-snug">
+        <h3 className="text-sm font-semibold leading-snug transition-colors group-hover:text-gold">
           {request.title}
         </h3>
         {priority && (

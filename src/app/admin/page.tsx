@@ -97,7 +97,7 @@ export default async function AdminDashboardPage() {
           <Link
             key={c.label}
             href={c.href}
-            className="rounded-2xl border border-line bg-surface p-4 transition hover:border-line2"
+            className="rounded-2xl border border-line bg-surface p-4 transition-all duration-300 hover:-translate-y-1 hover:border-gold/40 hover:shadow-[0_14px_36px_-18px_rgba(0,0,0,0.85)]"
           >
             <p className="text-xs font-semibold uppercase tracking-wide text-muted">
               {c.label}

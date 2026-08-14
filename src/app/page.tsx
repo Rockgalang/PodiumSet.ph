@@ -25,18 +25,18 @@ export default async function LandingPage() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
           <Logo />
           <nav className="hidden items-center gap-6 text-sm text-muted md:flex">
-            <a href="#packages" className="hover:text-paper">Pricing</a>
-            <a href="#how" className="hover:text-paper">How it works</a>
-            <a href="#compare" className="hover:text-paper">Why us</a>
-            <a href="#faq" className="hover:text-paper">FAQ</a>
+            <a href="#packages" className="nav-link transition-colors hover:text-paper">Pricing</a>
+            <a href="#how" className="nav-link transition-colors hover:text-paper">How it works</a>
+            <a href="#compare" className="nav-link transition-colors hover:text-paper">Why us</a>
+            <a href="#faq" className="nav-link transition-colors hover:text-paper">FAQ</a>
           </nav>
           <div className="flex items-center gap-3">
-            <Link href="/login" className="text-sm text-muted hover:text-paper">
+            <Link href="/login" className="nav-link text-sm text-muted transition-colors hover:text-paper">
               Login
             </Link>
             <Link
               href="/signup"
-              className="rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-ink hover:bg-gold-strong"
+              className="btn-sheen rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-gold-strong active:scale-[0.98]"
             >
               Start your subscription
             </Link>
@@ -125,9 +125,9 @@ export default async function LandingPage() {
                 <li key={i}>
                   <Reveal
                     delay={i * 60}
-                    className="flex items-start gap-3 rounded-xl border border-line bg-surface p-4 transition-colors hover:border-line2 hover:bg-surface2"
+                    className="group flex items-start gap-3 rounded-xl border border-line bg-surface p-4 transition-all duration-300 hover:-translate-x-0.5 hover:border-line2 hover:bg-surface2"
                   >
-                    <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-gold-soft text-xs font-bold text-gold">
+                    <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-gold-soft text-xs font-bold text-gold transition-colors duration-300 group-hover:bg-gold group-hover:text-ink">
                       {i + 1}
                     </span>
                     <span className="text-sm leading-relaxed text-paper2">
@@ -209,19 +209,19 @@ export default async function LandingPage() {
                 delay={i * 70}
                 className={p.featured ? "lg:-mt-3 lg:mb-3" : ""}
               >
-                <div
-                  className={`relative flex h-full flex-col rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1.5 ${
+<div
+                  className={`group relative flex h-full flex-col rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1.5 ${
                     p.featured
                       ? "border-gold bg-surface shadow-[0_0_40px_-12px_rgba(224,180,77,0.35)] hover:shadow-[0_0_55px_-10px_rgba(224,180,77,0.5)]"
                       : "border-line bg-surface hover:border-line2 hover:shadow-[0_12px_40px_-20px_rgba(0,0,0,0.8)]"
                   }`}
                 >
-                {p.featured && (
-                  <span className="absolute -top-3 left-6 rounded-full bg-gold px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-ink">
-                    Best and Top Choice
-                  </span>
-                )}
-                <h3 className="text-lg font-bold">{p.name}</h3>
+                  {p.featured && (
+                    <span className="absolute -top-3 left-6 rounded-full bg-gold px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-ink">
+                      Best and Top Choice
+                    </span>
+                  )}
+                  <h3 className="text-lg font-bold transition-colors group-hover:text-gold">{p.name}</h3>
                 <p className="mt-1 text-xs text-muted">{p.tagline}</p>
                 <div className="mt-4 flex items-baseline gap-1">
                   <span className="text-3xl font-bold">{peso(p.price_php)}</span>
@@ -363,9 +363,9 @@ export default async function LandingPage() {
               <Reveal
                 key={i}
                 delay={i * 70}
-                className="rounded-2xl border border-line bg-surface p-5 transition-all duration-300 hover:-translate-y-1 hover:border-line2"
+                className="group rounded-2xl border border-line bg-surface p-5 transition-all duration-300 hover:-translate-y-1 hover:border-line2"
               >
-                <div className="grid h-8 w-8 place-items-center rounded-full bg-gold-soft text-sm font-bold text-gold">
+                <div className="grid h-8 w-8 place-items-center rounded-full bg-gold-soft text-sm font-bold text-gold transition-all duration-300 group-hover:scale-110 group-hover:bg-gold group-hover:text-ink">
                   {i + 1}
                 </div>
                 <h3 className="mt-4 font-bold">{title}</h3>

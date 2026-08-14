@@ -48,10 +48,10 @@ export function AdminNav({ businessName }: { businessName: string }) {
               <Link
                 key={l.href}
                 href={l.href}
-                className={`whitespace-nowrap rounded-xl px-3 py-2 text-sm font-medium transition ${
+                className={`whitespace-nowrap rounded-xl px-3 py-2 text-sm font-medium transition-all duration-200 ${
                   active
                     ? "bg-surface2 text-paper"
-                    : "text-muted hover:text-paper"
+                    : "text-muted hover:-translate-y-0.5 hover:bg-surface2 hover:text-paper"
                 }`}
               >
                 {l.label}
@@ -60,7 +60,7 @@ export function AdminNav({ businessName }: { businessName: string }) {
           })}
           <button
             onClick={logout}
-            className="ml-2 whitespace-nowrap rounded-xl px-3 py-2 text-sm font-medium text-rose-300 hover:bg-ink2"
+            className="ml-2 whitespace-nowrap rounded-xl px-3 py-2 text-sm font-medium text-rose-300 transition-colors hover:bg-rose-500/15"
           >
             Log out
           </button>
